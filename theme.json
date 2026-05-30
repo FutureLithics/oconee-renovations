@@ -1,0 +1,88 @@
+    {
+        "settings": {
+            "color": {
+                "palette": [
+                    {
+                        "slug": "fine",
+                        "name": "Fine",
+                        "color": "#F3F4F6"                    
+                    },
+                    {
+                        "slug": "ash",
+                        "name": "Ash",
+                        "color": "#292D31"  
+                    },
+                    {
+                        "slug": "fine-ash",
+                        "name": "Fine Ash",
+                        "color": "#D1D1D1" 
+                    },
+                    {
+                        "slug": "primary-green",
+                        "name": "Primary Green",
+                        "color": "#4DAC66"
+                    },
+                    {
+                        "slug": "light-green",
+                        "name": "Light Green",
+                        "color": "#BEDCC6"
+                    },
+                    {
+                        "slug": "background-blue",
+                        "name": "BG Blue",
+                        "color": "#1B203B"                    
+                    },
+                    {
+                        "slug": "primary-blue",
+                        "name": "Primary Blue",
+                        "color": "#3B51C0"
+                    },
+                    {
+                        "slug": "primary-blue-dark",
+                        "name": "Primary Blue Dark",
+                        "color": "2A3A8F"                    
+                    },
+                    {
+                        "slug": "accent-bronze",
+                        "name": "Accent Bronze",
+                        "color": "#B87333"
+                    },
+                    {
+                        "slug": "light-bronze",
+                        "name": "Light Bronze",
+                        "color": "#E28B3A"
+                    },
+                    {
+                        "slug": "charcoal",
+                        "name": "Charcoal",
+                        "color": "#292D31"
+                    },
+                    {
+                        "slug": "light-gray",
+                        "name": "Light Gray",
+                        "color": "#F5F5F5"
+                    }
+                ]
+            },        
+            "typography": {
+                "fontSizes": [
+                {
+                    "slug": "x-small",
+                    "size": "12px"
+                },
+                {
+                    "slug": "small",
+                    "size": "16px"
+                },
+                {
+                    "slug": "body",
+                    "size": "20px"
+                },
+                {
+                    "slug": "heading",
+                    "size": "48px"
+                }
+                ]
+            }
+        }
+    }
