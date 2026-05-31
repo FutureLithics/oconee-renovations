@@ -714,6 +714,138 @@ body {
     }
 }
 
+/* Recent Projects */
+
+.recent-projects {
+    background: white;
+    text-align: center;
+    margin: 0 auto !important;
+    padding: 6rem 2rem;
+}
+
+.recent-projects .recent-projects__heading.wp-block-heading {
+    margin-top: 0 !important;
+    margin-right: auto !important;
+    margin-bottom: 4rem !important;
+    margin-left: auto !important;
+    color: var(--wp--preset--color--charcoal, #292D31);
+    font-size: var(--oconee-font-2xl);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.recent-projects__heading::after {
+    content: none;
+}
+
+.recent-projects__grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 520px));
+    gap: 4rem;
+    justify-content: center;
+    width: 100%;
+}
+
+.recent-projects__grid.is-layout-flow > *,
+.recent-projects__grid > .wp-block-html,
+.recent-projects__grid > .wp-block-paragraph {
+    margin: 0 !important;
+}
+
+.recent-projects__grid > .wp-block-html {
+    width: 100%;
+}
+
+.recent-projects__card {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 10 / 7;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #d7d7d7;
+    text-decoration: none;
+}
+
+.recent-projects__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 250ms ease-in-out;
+}
+
+.recent-projects__card:hover .recent-projects__image {
+    transform: scale(1.03);
+}
+
+.recent-projects__overlay {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 16.667%;
+    padding: 0.85rem 1.25rem;
+    background: rgba(30, 30, 30, 0.8);
+}
+
+.recent-projects__title {
+    color: var(--wp--preset--color--fine, #F3F4F6);
+    font-size: var(--oconee-font-small);
+    font-weight: 700;
+    line-height: 1.3;
+    text-align: center;
+}
+
+.recent-projects__empty {
+    grid-column: 1 / -1;
+    max-width: 40rem;
+    margin-right: auto !important;
+    margin-left: auto !important;
+    font-size: var(--oconee-font-body);
+    line-height: 1.5;
+}
+
+.recent-projects__cta-wrap {
+    margin-top: 4rem !important;
+}
+
+.recent-projects__cta-wrap,
+.recent-projects__cta-wrap .recent-projects__cta {
+    text-align: center;
+}
+
+.recent-projects__cta {
+    min-width: 10rem;
+}
+
+@media (max-width: 1024px) {
+    .recent-projects {
+        padding: 3rem 1.25rem;
+    }
+
+    .recent-projects .recent-projects__heading.wp-block-heading {
+        font-size: var(--oconee-font-large);
+    }
+
+    .recent-projects__grid {
+        grid-template-columns: minmax(0, 560px);
+        gap: 1.5rem;
+        justify-items: center;
+    }
+
+    .recent-projects__title {
+        font-size: var(--oconee-font-small);
+    }
+
+    .recent-projects__empty {
+        font-size: var(--oconee-font-small);
+    }
+}
+
 /* Testimonials */
 
 .testimonials {
