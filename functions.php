@@ -63,6 +63,14 @@ add_action( 'wp_enqueue_scripts', function() {
         array(),
         '6.5.1'
     );
+
+    wp_enqueue_script(
+        'oconee-site-header',
+        get_stylesheet_directory_uri() . '/assets/js/site-header.js',
+        array(),
+        oconee_asset_version( 'assets/js/site-header.js' ),
+        true
+    );
 }, 5 );
 
 add_action( 'wp_enqueue_scripts', function() {

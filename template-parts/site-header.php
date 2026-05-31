@@ -12,7 +12,19 @@
         </a>
     </div>
 
-    <div class="header-right">
+    <button
+        class="site-header-menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-navigation-dialog"
+        aria-label="<?php esc_attr_e( 'Open menu', 'oconee-renovations' ); ?>"
+    >
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <div class="header-right" id="primary-navigation-dialog">
         <nav class="primary-navigation" aria-label="<?php esc_attr_e( 'Primary navigation', 'oconee-renovations' ); ?>">
             <?php
             wp_nav_menu( array(
