@@ -1,53 +1,198 @@
 /*
 Theme Name: Oconee Renovations
 Template: genesis
-Version: 1.0.0
+Version: 1.1.1
 */
 
 /* Fonts */
 
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
 body {
-    font-family: var(--wp--preset--font-family--inter, "Inter", sans-serif);
+    font-family: var(--wp--preset--font-family--inter, sans-serif);
 }
 
 .xl-2 {
-    font-size: var(--wp--preset--font-size--2xl, 32px);
+    font-size: var(--oconee-font-2xl);
 }
 
-.btn {
+/* Hero */
+
+.hero__title {
+    margin: 0;
+    font-size: var(--oconee-font-heading);
+    line-height: 1.15;
+}
+
+.hero__lead {
+    margin: 0;
+    font-size: var(--oconee-font-body);
+    line-height: 1.5;
+}
+
+@media (max-width: 781px) {
+    .hero__title {
+        font-size: var(--oconee-font-2xl);
+    }
+
+    .hero__lead {
+        font-size: var(--oconee-font-small);
+    }
+}
+
+/*
+ * Buttons — edit these variables to change all .btn and block buttons at once.
+ * Block color picks in the editor (has-*-background-color / has-*-color) override defaults.
+ */
+:root {
+    /* Typography scale — edit here; sections use these, not has-*-font-size classes */
+    --oconee-font-xs: 12px;
+    --oconee-font-small: 16px;
+    --oconee-font-body: 20px;
+    --oconee-font-large: 24px;
+    --oconee-font-2xl: 32px;
+    --oconee-font-heading: 48px;
+    --btn-padding: 0.875rem 1.5rem;
+    --btn-radius: 10px;
+    --btn-font-weight: 600;
+    --btn-transition: all 250ms ease-in-out;
+    --btn-primary-bg: var(--wp--preset--color--primary-blue, #3B51C0);
+    --btn-primary-color: var(--wp--preset--color--fine, #F3F4F6);
+    --btn-primary-bg-hover: var(--wp--preset--color--primary-blue-dark, #2A3A8F);
+    --btn-secondary-bg: var(--wp--preset--color--accent-bronze, #B87333);
+    --btn-secondary-color: var(--wp--preset--color--charcoal, #292D31);
+    --btn-outline-border: var(--wp--preset--color--accent-bronze, #B87333);
+    --btn-outline-color: var(--wp--preset--color--accent-bronze, #B87333);
+    --btn-filled-bg: var(--wp--preset--color--accent-bronze, #B87333);
+    --btn-filled-bg-hover: #965F29;
+    --btn-filled-color: var(--wp--preset--color--light-bronze, #F3F4F6);
+    --btn-outline-bg-hover: var(--wp--preset--color--accent-bronze, #B87333);
+    --btn-outline-color-hover: var(--wp--preset--color--charcoal, #292D31);
+    --btn-border-width: 2px;
+    --btn-group-gap: 2rem;
+    --content-stack-gap: 2rem;
+}
+
+/* Space between buttons in a row */
+.wp-block-buttons {
+    gap: var(--btn-group-gap);
+}
+
+/* Shared base (header .btn links + block editor buttons) */
+.btn,
+.wp-block-buttons .wp-block-button > .wp-block-button__link.wp-element-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.875rem 1.5rem;
-    border-radius: 10px;
-    font-weight: 600;
+    box-sizing: border-box;
+    padding: var(--btn-padding);
+    border: var(--btn-border-width) solid transparent;
+    border-radius: var(--btn-radius);
+    font-weight: var(--btn-font-weight);
     text-decoration: none;
-    transition: all .2s ease;
+    transition: var(--btn-transition);
+    box-shadow: none;
 }
 
+/* Filled / primary */
 .btn--primary {
-    background: var(--wp--preset--color--primary-blue);
-    color: var(--wp--preset--color--fine);
+    background: var(--btn-primary-bg);
+    border-color: var(--btn-primary-bg);
+    color: var(--btn-primary-color);
 }
 
 .btn--primary:hover {
-    background: var(--wp--preset--color--primary-blue-dark, #2A3A8F);
+    background: var(--btn-primary-bg-hover);
+    border-color: var(--btn-primary-bg-hover);
+    color: var(--btn-primary-color);
+}
+
+/* Filled block buttons: bronze fill; text uses block/editor default until hover */
+.wp-block-button:not(.is-style-outline) > .wp-block-button__link:not([class*="-background-color"]) {
+    background: var(--btn-filled-bg);
+    border-color: var(--btn-filled-bg);
+}
+
+.wp-block-button:not(.is-style-outline) > .wp-block-button__link:hover {
+    background: var(--btn-filled-bg-hover) !important;
+    border-color: var(--btn-filled-bg-hover) !important;
+    color: var(--btn-filled-color) !important;
 }
 
 .btn--secondary {
-    background: var(--wp--preset--color--bronze-accent);
-    color: var(--wp--preset--color--charcoal);
+    background: var(--btn-secondary-bg);
+    color: var(--btn-secondary-color);
 }
 
+/* Outline */
 .btn--outline {
     background: transparent;
-    border: 2px solid var(--wp--preset--color--bronze-accent);
-    color: var(--wp--preset--color--bronze-accent);
+    border-color: var(--btn-outline-border);
+    color: var(--btn-outline-color);
+}
+
+.btn--outline:hover {
+    background: var(--btn-outline-bg-hover);
+    border-color: var(--btn-outline-bg-hover);
+    color: var(--btn-outline-color-hover);
+}
+
+.wp-block-button.is-style-outline > .wp-block-button__link:not([class*="-background-color"]) {
+    background: transparent;
+    border-color: var(--btn-outline-border);
+}
+
+.wp-block-button.is-style-outline > .wp-block-button__link:not(.has-text-color) {
+    color: var(--btn-outline-color);
+}
+
+/*
+ * Outline hover must use !important — WP global styles set .has-*-color with
+ * !important, which otherwise keeps bronze text even when the background fills.
+ */
+.wp-block-button.is-style-outline > .wp-block-button__link.wp-element-button:hover,
+.wp-block-button.is-style-outline > .wp-block-button__link:hover {
+    background: var(--btn-outline-bg-hover) !important;
+    border-color: var(--btn-outline-bg-hover) !important;
+    color: var(--btn-outline-color-hover) !important;
+}
+
+/* Layout: flush main content to header (Genesis .site-inner / .wrap defaults) */
+
+.site-inner {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.site-inner > .wrap {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.site-inner .content-sidebar-wrap,
+.site-inner main.content,
+.site-inner article.entry,
+.site-inner .entry-content {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.site-inner .entry-content > *:first-child {
+    margin-block-start: 0;
 }
 
 /* Header styles */
 
 .site-header {
+    margin-bottom: 0;
     background: var(--wp--preset--color--fine);
     border-bottom: 1px solid rgba(0,0,0,0.08);
 }
@@ -74,6 +219,11 @@ body {
     font-weight: 700;
     color: var(--wp--preset--color--charcoal, #292D31);
     text-decoration: none;
+    transition: all 250ms ease-in-out;
+}
+
+.site-logo:hover {
+    color: var(--wp--preset--color--primary-blue);
 }
 
 .primary-navigation ul {
@@ -101,5 +251,505 @@ body {
     border-radius: 10px;
     font-weight: 700;
     text-decoration: none;
+}
+
+/* Feature band (below hero) */
+
+.feature-band {
+    color: #fff;
+    padding-top: 1.25rem !important;
+    padding-bottom: 1.25rem !important;
+}
+
+.feature-band .wp-block-columns.feature-band__columns,
+.feature-band__columns {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    flex-wrap: nowrap !important;
+}
+
+.feature-band .wp-block-columns.feature-band__columns > .wp-block-column {
+    min-width: 0;
+}
+
+.feature-band__item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    margin: 0;
+    font-size: var(--oconee-font-body);
+    font-weight: 500;
+    line-height: 1.2;
+    color: inherit;
+}
+
+.feature-band__icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    line-height: 0;
+}
+
+.feature-band__icon img {
+    display: block;
+    object-fit: contain;
+}
+
+.feature-band__label {
+    color: inherit;
+}
+
+@media (max-width: 781px) {
+    .feature-band .wp-block-columns.feature-band__columns {
+        flex-wrap: nowrap !important;
+    }
+
+    .feature-band__item {
+        gap: 0.25rem;
+        font-size: var(--oconee-font-xs);
+    }
+
+    .feature-band__icon img {
+        width: 12px;
+        height: 12px;
+    }
+
+    .feature-band .wp-block-columns.feature-band__columns > .wp-block-column {
+        flex-basis: 0 !important;
+        flex-grow: 1 !important;
+    }
+}
+
+/* About Us (two-column text + image) */
+
+.about-us {
+    background: linear-gradient(
+        135deg,
+        var(--wp--preset--color--fine, #F3F4F6) 0%,
+        var(--wp--preset--color--light-green, #BEDCC6) 100%
+    );
+    padding: 4rem 0; 
+}
+
+.about-us__columns {
+    max-width: var(--wp--style--global--wide-size, 1280px);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (min-width: 1025px) {
+    .about-us .wp-block-columns.about-us__columns {
+        gap: 4rem !important;
+    }
+}
+
+.section-heading,
+.about-us__heading {
+    position: relative;
+    display: inline-block;
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.65rem;
+    font-size: var(--oconee-font-2xl);
+    line-height: 1.2;
+    color: var(--wp--preset--color--charcoal, #292D31);
+}
+
+.about-us__body {
+    font-size: var(--oconee-font-body);
+    line-height: 1.5;
+}
+
+.section-heading::after,
+.about-us__heading::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: -1.75rem;
+    bottom: 0;
+    height: 4px;
+    background: var(--wp--preset--color--accent-bronze, #B87333);
+    border-radius: 2px;
+}
+
+.about-us__content .wp-block-paragraph,
+.about-us__content .wp-block-list {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.about-us__content .wp-block-list:last-of-type {
+    margin-bottom: 1rem;
+}
+
+.about-us__list {
+    padding-left: 1.25rem;
+}
+
+.about-us__image {
+    margin: 0;
+}
+
+.about-us__image img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 36px;
+}
+
+@media (max-width: 1024px) {
+    .about-us .wp-block-columns.about-us__columns {
+        flex-direction: column !important;
+        flex-wrap: nowrap !important;
+        gap: 2.5rem !important;
+        padding-left: 1.25rem !important;
+        padding-right: 1.25rem !important;
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+    }
+
+    .about-us .wp-block-columns.about-us__columns > .wp-block-column {
+        flex-basis: auto !important;
+        flex-grow: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .about-us__heading {
+        font-size: var(--oconee-font-large);
+    }
+
+    .about-us__body {
+        font-size: var(--oconee-font-small);
+    }
+
+    .about-us__content,
+    .about-us__media {
+        order: unset;
+    }
+}
+
+/* Services */
+
+.services {
+    background: var(--wp--preset--color--fine, #F3F4F6);
+    text-align: center;
+    margin: 0 auto !important;
+    padding: 6rem 2rem;
+}
+
+@media (max-width: 1024px) {
+    .services {
+        padding: 3rem 1.25rem;
+    }
+}
+
+.services .services__heading.wp-block-heading {
+    margin-top: 0 !important;
+    margin-right: auto !important;
+    margin-bottom: 3rem !important;
+    margin-left: auto !important;
+    padding-bottom: 0;
+    font-size: var(--oconee-font-2xl);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.services__heading::after {
+    content: none;
+}
+
+.services__subheading {
+    max-width: 48rem;
+    margin-top: 0 !important;
+    margin-right: auto !important;
+    margin-bottom: 4rem !important;
+    margin-left: auto !important;
+    font-size: var(--oconee-font-large) !important;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.services__grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(300px, 320px));
+    gap: 4rem !important;
+    row-gap: 4rem;
+    align-items: stretch;
+    justify-content: center;
+    width: 100%;
+}
+
+/* WP layout-flow adds margins between grid children and inside cards */
+.services__grid.is-layout-flow > *,
+.services__grid > .services__card {
+    margin: 0 !important;
+}
+
+.services__card {
+    box-sizing: border-box;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start; /* intentional: top-align card content in the square */
+    gap: 1rem;
+    width: 100%;
+    min-width: 300px;
+    max-width: 320px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    aspect-ratio: 1 / 1;
+    background: #fff;
+    border-radius: 30px;
+    box-shadow: 2px 4px 4px rgba(184, 115, 51, 0.5);
+    text-align: center;
+}
+
+.services__card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+}
+
+.services__card-icon img {
+    display: block;
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.services__card.is-layout-flow > *,
+.services__card > .wp-block-heading,
+.services__card > .wp-block-paragraph,
+.services__card > .wp-block-html,
+.services__card > .services__card-icon {
+    margin: 0 !important;
+}
+
+.services__card-title {
+    margin: 0 !important;
+    font-size: var(--oconee-font-large) !important;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.services__card-text {
+    margin: 0 !important;
+    font-size: var(--oconee-font-small) !important;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+@media (max-width: 1024px) {
+    .services__heading {
+        font-size: var(--oconee-font-large);
+    }
+
+    .services__subheading {
+        font-size: var(--oconee-font-body) !important;
+    }
+
+    .services__card-title {
+        font-size: var(--oconee-font-body) !important;
+    }
+
+    .services__card-text {
+        font-size: var(--oconee-font-small) !important;
+    }
+
+    .services__grid {
+        grid-template-columns: minmax(0, 320px);
+        gap: 2.5rem !important;
+        justify-content: center;
+        justify-items: center;
+    }
+}
+
+/* Testimonials */
+
+.testimonials {
+    background: var(--wp--preset--color--background-blue, #1B203B);
+    text-align: center;
+    padding: 8rem 2rem;
+}
+
+.testimonials .testimonials__heading.wp-block-heading {
+    margin-top: 0 !important;
+    margin-right: auto !important;
+    margin-bottom: 3rem !important;
+    margin-left: auto !important;
+    color: var(--wp--preset--color--fine, #F3F4F6);
+    font-size: var(--oconee-font-2xl);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.testimonials__grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(300px, 320px));
+    gap: 2rem;
+    row-gap: 2.5rem;
+    align-items: stretch;
+    justify-content: center;
+    width: 100%;
+}
+
+.testimonials__grid.is-layout-flow > *,
+.testimonials__grid > .testimonials__card {
+    margin: 0 !important;
+}
+
+.testimonials__card {
+    box-sizing: border-box;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    min-width: 300px;
+    max-width: 320px;
+    min-height: auto;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+    background: var(--wp--preset--color--fine, #F3F4F6);
+    border-radius: 30px;
+    box-shadow: 3px 4px 4px rgba(47, 168, 79, 0.6);
+    text-align: center;
+}
+
+.testimonials__card > .testimonials__attribution,
+.testimonials__card > .testimonials__attribution.is-layout-flow > * {
+    margin: 0 !important;
+}
+
+/* 4rem below quote icon — flex item margin (do not zero all .wp-block-group on the card). */
+.testimonials__card > .testimonials__icon-wrap,
+.testimonials__card > .wp-block-html:first-child {
+    width: 100%;
+    margin: 0 0 2rem !important;
+    padding: 0;
+}
+
+.testimonials__icon-wrap.is-layout-flow > *,
+.testimonials__icon-wrap > .wp-block-html {
+    margin: 0 !important;
+}
+
+.testimonials__body {
+    flex: 1 1 auto;
+    width: 100%;
+    margin: 0 !important;
+    text-align: left;
+}
+
+.testimonials__body.is-layout-flow > *,
+.testimonials__body > .wp-block-paragraph,
+.testimonials__body > .wp-block-list {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.testimonials__quote-icon {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    line-height: 0;
+    margin: 0;
+}
+
+.testimonials__quote-icon img {
+    display: block;
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.testimonials__quote {
+    width: 100%;
+    margin: 0 0 0.75rem !important;
+    color: var(--wp--preset--color--ash, #292D31);
+    font-size: var(--oconee-font-xs) !important;
+    line-height: 1.5;
+    text-align: left;
+    white-space: pre-line;
+}
+
+.testimonials__body > .testimonials__quote:last-child {
+    margin-bottom: 0 !important;
+}
+
+.testimonials__quote-list {
+    margin: 0 0 0.75rem !important;
+    padding-left: 1.25rem;
+    list-style-type: disc;
+    list-style-position: outside;
+    text-align: left;
+}
+
+.testimonials__quote-list li {
+    margin-bottom: 0.35rem;
+    color: var(--wp--preset--color--ash, #292D31);
+    font-size: var(--oconee-font-xs) !important;
+    line-height: 1.5;
+}
+
+.testimonials__quote-list li:last-child {
+    margin-bottom: 0;
+}
+
+.testimonials__attribution {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    width: 100%;
+    margin-top: auto !important;
+    padding-top: 2rem;
+    text-align: center;
+}
+
+.testimonials__attribution.is-layout-flow > *,
+.testimonials__attribution > .wp-block-paragraph {
+    margin: 0 !important;
+}
+
+.testimonials__name {
+    margin: 0 !important;
+    color: var(--wp--preset--color--charcoal, #292D31);
+    font-size: var(--oconee-font-body);
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.testimonials__honorific {
+    margin: 0 !important;
+    min-height: 1.35em;
+    color: var(--wp--preset--color--charcoal, #292D31);
+    font-size: var(--oconee-font-small);
+    font-style: italic;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.testimonials__honorific:empty::before {
+    content: '\00a0';
+}
+
+@media (max-width: 1024px) {
+    .testimonials {
+        padding: 3rem 1.25rem;
+    }
+
+    .testimonials__grid {
+        grid-template-columns: minmax(0, 320px);
+        gap: 2.5rem !important;
+        justify-content: center;
+        justify-items: center;
+    }
 }
 
