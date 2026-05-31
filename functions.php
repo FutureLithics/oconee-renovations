@@ -1,6 +1,7 @@
 <?php
 
 require_once get_template_directory() . '/lib/init.php';
+require_once get_stylesheet_directory() . '/includes/class-oconee-contact-widget.php';
 
 /**
  * Cache-busting version for theme CSS/JS.
@@ -197,13 +198,41 @@ add_action( 'get_header', function() {
     remove_action( 'genesis_entry_header', 'genesis_do_post_title' );
 });
 
+add_action( 'widgets_init', function() {
+    $footers = array(
+        'footer-1' => __( 'Footer Column 1', 'oconee-renovations' ),
+        'footer-2' => __( 'Footer Column 2', 'oconee-renovations' ),
+        'footer-3' => __( 'Footer Column 3', 'oconee-renovations' ),
+    );
+
+    foreach ( $footers as $id => $name ) {
+        register_sidebar(
+            array(
+                'name'          => $name,
+                'id'            => $id,
+                'before_widget' => '<section class="widget %2$s">',
+                'after_widget'  => '</section>',
+                'before_title'  => '<h3 class="widget-title widgettitle">',
+                'after_title'   => '</h3>',
+            )
+        );
+    }
+
+    register_widget( 'Oconee_Contact_Widget' );
+} );
+
 remove_action( 'genesis_header', 'genesis_do_header' );
 remove_action( 'genesis_after_header', 'genesis_do_nav' );
 remove_action( 'genesis_after_header', 'genesis_do_subnav' );
+remove_action( 'genesis_footer', 'genesis_do_footer' );
 
 add_action( 'genesis_header', function() {
     get_template_part( 'template-parts/site-header' );
 });
+
+add_action( 'genesis_footer', function() {
+    get_template_part( 'template-parts/site-footer' );
+} );
 
 /**
  * Front page: no sidebar (full-width content).
