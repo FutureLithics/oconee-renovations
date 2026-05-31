@@ -3,3 +3,103 @@ Theme Name: Oconee Renovations
 Template: genesis
 Version: 1.0.0
 */
+
+/* Fonts */
+
+body {
+    font-family: var(--wp--preset--font-family--inter, "Inter", sans-serif);
+}
+
+.xl-2 {
+    font-size: var(--wp--preset--font-size--2xl, 32px);
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.875rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all .2s ease;
+}
+
+.btn--primary {
+    background: var(--wp--preset--color--primary-blue);
+    color: var(--wp--preset--color--fine);
+}
+
+.btn--primary:hover {
+    background: var(--wp--preset--color--primary-blue-dark, #2A3A8F);
+}
+
+.btn--secondary {
+    background: var(--wp--preset--color--bronze-accent);
+    color: var(--wp--preset--color--charcoal);
+}
+
+.btn--outline {
+    background: transparent;
+    border: 2px solid var(--wp--preset--color--bronze-accent);
+    color: var(--wp--preset--color--bronze-accent);
+}
+
+/* Header styles */
+
+.site-header {
+    background: var(--wp--preset--color--fine);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.site-header-inner {
+    max-width: var(--wp--style--global--wide-size);
+    min-height: 75px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 2rem;
+}
+
+.site-logo {
+    font-weight: 700;
+    color: var(--wp--preset--color--charcoal, #292D31);
+    text-decoration: none;
+}
+
+.primary-navigation ul {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.primary-navigation ul li a{
+    text-decoration: none;
+    color: var(--wp--preset--color--charcoal);
+    font-size: var(--wp--preset--font-size--body);
+    font-weight: bold;
+    transition: color 250ms ease-in-out;
+}
+
+.primary-navigation ul li a:hover {
+    color: var(--wp--preset--color--primary-blue);
+}
+
+.header-cta {
+    padding: 0.65rem 1.25rem;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
