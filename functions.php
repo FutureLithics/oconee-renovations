@@ -244,3 +244,11 @@ add_filter( 'genesis_site_layout', function( $layout ) {
 
     return $layout;
 } );
+
+add_action( 'pre_get_posts', function( $query ) {
+    if ( is_admin() || ! $query->is_main_query() || ! $query->is_archive() || $query->is_search() ) {
+        return;
+    }
+
+    $query->set( 'posts_per_page', 6 );
+} );

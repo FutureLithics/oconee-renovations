@@ -3,6 +3,22 @@
  * Single Project template.
  */
 
+if ( ! function_exists( 'oconee_get_project_field' ) ) {
+	function oconee_get_project_field( $field_name, $post_id = null ) {
+		$post_id = $post_id ?: get_the_ID();
+
+		if ( function_exists( 'get_field' ) ) {
+			$value = get_field( $field_name, $post_id );
+
+			if ( '' !== $value && null !== $value && false !== $value ) {
+				return $value;
+			}
+		}
+
+		return get_post_meta( $post_id, $field_name, true );
+	}
+}
+
 add_filter( 'genesis_site_layout', function() {
 	return 'full-width-content';
 } );
@@ -49,16 +65,32 @@ add_action( 'genesis_entry_content', function() {
 	$published_text = get_the_date( 'F j, Y' );
 	$modified_time  = get_the_modified_date( DATE_W3C );
 	$modified_text  = get_the_modified_date( 'F j, Y' );
+	$description    = trim( (string) oconee_get_project_field( 'description' ) );
+	$completion_raw = trim( (string) oconee_get_project_field( 'completion_date' ) );
+	$meta_label     = __( 'Published', 'oconee-renovations' );
+	$meta_time      = $published_time;
+	$meta_text      = $published_text;
+
+	if ( '' !== $completion_raw ) {
+		$completion_timestamp = strtotime( $completion_raw );
+
+		$meta_label = __( 'Completed', 'oconee-renovations' );
+		$meta_text  = $completion_timestamp ? wp_date( 'F j, Y', $completion_timestamp ) : $completion_raw;
+		$meta_time  = $completion_timestamp ? wp_date( DATE_W3C, $completion_timestamp ) : '';
+	}
 	?>
 	<header class="project-entry-header">
 		<h1 class="project-entry-title"><?php echo esc_html( get_the_title() ); ?></h1>
 		<p class="project-entry-meta">
-			<time datetime="<?php echo esc_attr( $published_time ); ?>">Published <?php echo esc_html( $published_text ); ?></time>
+			<time datetime="<?php echo esc_attr( $meta_time ); ?>"><?php echo esc_html( $meta_label . ' ' . $meta_text ); ?></time>
 			<?php if ( get_the_modified_time( 'U' ) > get_the_time( 'U' ) ) : ?>
 				<span class="project-entry-meta__separator">|</span>
 				<time datetime="<?php echo esc_attr( $modified_time ); ?>">Updated <?php echo esc_html( $modified_text ); ?></time>
 			<?php endif; ?>
 		</p>
+		<?php if ( '' !== $description ) : ?>
+			<p class="project-entry-description"><?php echo esc_html( $description ); ?></p>
+		<?php endif; ?>
 	</header>
 	<?php
 }, 5 );
@@ -77,17 +109,6 @@ add_action( 'genesis_entry_content', function() {
 	<p class="project-entry-edit">
 		<a href="<?php echo esc_url( $edit_link ); ?>"><?php esc_html_e( 'Edit Project', 'oconee-renovations' ); ?></a>
 	</p>
-	<?php
-}, 15 );
-
-add_action( 'genesis_after_entry', function() {
-	if ( ! is_singular( 'project' ) || ! is_active_sidebar( 'sidebar' ) ) {
-		return;
-	}
-	?>
-	<aside class="project-sidebar sidebar sidebar-primary widget-area" aria-label="<?php esc_attr_e( 'Project details', 'oconee-renovations' ); ?>">
-		<?php dynamic_sidebar( 'sidebar' ); ?>
-	</aside>
 	<?php
 }, 15 );
 
