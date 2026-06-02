@@ -115,9 +115,14 @@ add_action( 'genesis_loop', function() {
 				<?php endwhile; ?>
 			</div>
 
-			<?php if ( get_next_posts_link() ) : ?>
+			<?php
+			$next_page_url = get_next_posts_page_link( $wp_query->max_num_pages );
+			?>
+			<?php if ( $next_page_url ) : ?>
 				<div class="archive-listing__cta-wrap">
-					<?php next_posts_link( __( 'View More', 'oconee-renovations' ), $wp_query->max_num_pages ); ?>
+					<a class="archive-listing__load-more btn btn--secondary" href="<?php echo esc_url( $next_page_url ); ?>">
+						<?php esc_html_e( 'View More', 'oconee-renovations' ); ?>
+					</a>
 				</div>
 			<?php endif; ?>
 		<?php else : ?>

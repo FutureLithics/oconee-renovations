@@ -35,7 +35,7 @@
             ?>
         </nav>
 
-        <a class="btn btn--primary header-cta" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">
+        <a class="btn btn--primary header-cta" href="<?php echo esc_url( home_url( '/contact-us/' ) ); ?>">
             Contact Us
         </a>
     </div>

@@ -2,6 +2,7 @@
 
 require_once get_template_directory() . '/lib/init.php';
 require_once get_stylesheet_directory() . '/includes/class-oconee-contact-widget.php';
+require_once get_stylesheet_directory() . '/includes/class-oconee-cta-widget.php';
 
 /**
  * Cache-busting version for theme CSS/JS.
@@ -70,6 +71,22 @@ add_action( 'wp_enqueue_scripts', function() {
         get_stylesheet_directory_uri() . '/assets/js/site-header.js',
         array(),
         oconee_asset_version( 'assets/js/site-header.js' ),
+        true
+    );
+
+    wp_enqueue_script(
+        'oconee-gallery-lightbox',
+        get_stylesheet_directory_uri() . '/assets/js/gallery-lightbox.js',
+        array(),
+        oconee_asset_version( 'assets/js/gallery-lightbox.js' ),
+        true
+    );
+
+    wp_enqueue_script(
+        'oconee-archive-load-more',
+        get_stylesheet_directory_uri() . '/assets/js/archive-load-more.js',
+        array(),
+        oconee_asset_version( 'assets/js/archive-load-more.js' ),
         true
     );
 }, 5 );
@@ -219,6 +236,7 @@ add_action( 'widgets_init', function() {
     }
 
     register_widget( 'Oconee_Contact_Widget' );
+    register_widget( 'Oconee_CTA_Widget' );
 } );
 
 remove_action( 'genesis_header', 'genesis_do_header' );
@@ -251,4 +269,74 @@ add_action( 'pre_get_posts', function( $query ) {
     }
 
     $query->set( 'posts_per_page', 6 );
+} );
+
+if ( ! function_exists( 'oconee_render_recent_projects_section' ) ) {
+    function oconee_render_recent_projects_section() {
+        $projects = get_posts(
+            array(
+                'post_type'      => 'project',
+                'post_status'    => 'publish',
+                'posts_per_page' => 4,
+                'orderby'        => 'date',
+                'order'          => 'DESC',
+                'meta_query'     => array(
+                    array(
+                        'key'     => '_thumbnail_id',
+                        'compare' => 'EXISTS',
+                    ),
+                ),
+            )
+        );
+
+        $projects_index_url = get_post_type_archive_link( 'project' );
+
+        if ( ! $projects_index_url ) {
+            $projects_index_url = home_url( '/projects/' );
+        }
+
+        ob_start();
+        ?>
+        <div class="wp-block-group alignfull recent-projects has-background">
+            <h2 class="wp-block-heading has-text-align-center recent-projects__heading has-charcoal-color has-text-color">Recent Projects</h2>
+
+            <div class="wp-block-group recent-projects__grid">
+                <?php if ( ! empty( $projects ) ) : ?>
+                    <?php foreach ( $projects as $project ) : ?>
+                        <a class="recent-projects__card" href="<?php echo esc_url( get_permalink( $project ) ); ?>">
+                            <?php
+                            echo wp_get_attachment_image(
+                                get_post_thumbnail_id( $project ),
+                                'large',
+                                false,
+                                array(
+                                    'class'    => 'recent-projects__image',
+                                    'alt'      => esc_attr( get_the_title( $project ) ),
+                                    'loading'  => 'lazy',
+                                    'decoding' => 'async',
+                                )
+                            );
+                            ?>
+                            <span class="recent-projects__overlay">
+                                <span class="recent-projects__title"><?php echo esc_html( get_the_title( $project ) ); ?></span>
+                            </span>
+                        </a>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <p class="has-text-align-center recent-projects__empty has-charcoal-color has-text-color">Add featured images to your recent project pages to populate this section.</p>
+                <?php endif; ?>
+            </div>
+
+            <div class="recent-projects__cta-wrap">
+                <a class="btn btn--secondary recent-projects__cta" href="<?php echo esc_url( $projects_index_url ); ?>">View More</a>
+            </div>
+        </div>
+        <?php
+
+        return trim( (string) ob_get_clean() );
+    }
+}
+
+add_shortcode( 'oconee_recent_projects', function() {
+    return oconee_render_recent_projects_section();
 } );
